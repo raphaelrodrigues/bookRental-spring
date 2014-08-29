@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"> 
+    <!-- the application context definition for the springapp DispatcherServlet --> 
+    
+    <bean id="bookManager" class="service.BookManagerImpl">
+        <property name="books">
+            <list>
+                <ref bean="book1"/>
+                <ref bean="book2"/>
+                <ref bean="book3"/>
+            </list> 
+        </property>
+    </bean> 
+    <bean id="book1" class="model.Book">
+        <property name="id" value="1"/>
+        <property name="name" value="Cenas"/>
+    </bean>        
+    <bean id="book2" class="model.Book">
+       <property name="id" value="1234234"/>
+        <property name="name" value="Cenas34"/>
+    </bean> 
+    <bean id="book3" class="model.Book">
+       <property name="id" value="1234"/>
+        <property name="name" value="Cenas234"/>
+    </bean> 
+    
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
+    </bean>
+    <bean class="web.BookController">
+        <property name="bookManager" ref="bookManager"/>
+    </bean> 
+    
+    
+    
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean> 
+</beans>
